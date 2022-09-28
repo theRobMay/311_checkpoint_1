@@ -10,7 +10,7 @@ const {
     updateUser,
     deleteUser,
 } = require('../controllers/usersControllers.js');
-
+//importing routes
 router.get('/', (req, res) =>
     res.send('<h1>Placeholder "static" element</h1>')
 );

@@ -27,7 +27,7 @@ const getUsersByID = (req, res) => {
         return;
     }
     // storing the SQL query to a variable, this query will return the user ID, first_name, last_name, address, email, phone, username, and the user_password Using the userID variable to finalize the query.
-    const sqlQuery = `select user_id, first_name, last_name, address, email, phone, username, user_password from users where user_id = ?`;
+    const sqlQuery = `select user_id, first_name, last_name, address, email, phone, username, user_password from users where user_id = ?`; //!no password
     // saving params array as a variable.
     const params = [userID];
 
@@ -41,7 +41,7 @@ const getUsersByID = (req, res) => {
             // If greater than 1 row returned...
             if (rows.length > 1) {
                 console.log(
-                    'Something went wrong. More than 1 row was returned for id:',
+                    'More than 1 row was returned for id:',
                     userID
                 );
                 res.sendStatus(500); //# Sending 500 because there is something wrong with the backend.
@@ -92,7 +92,7 @@ const postNewUser = (req, res) => {
                     // if greater than 1 row returned...
                     if (rows.length > 1) {
                         console.log(
-                            'Something went wrong. More than 1 row was returned for id:',
+                            'More than 1 row was returned for id:',
                             userID
                         );
                         res.sendStatus(500); //500 because there is something wrong with the backend.
@@ -117,7 +117,9 @@ const updateUser = (req, res) => {
     // creating a variable to store the path parameter, we will use this in the sqlQuery below to make the query dynamic based on the user's input.
     const userID = req.params.id;
     // if the client is not sending an ID, send a 400 status code and exit the function.
+    //console.log("what user ID are we working with",userID)
     if (!userID) {
+        console.log("what user ID are we working with",userID)
         res.sendStatus(400);
         return;
     }
@@ -141,7 +143,7 @@ const updateUser = (req, res) => {
                     // i greater than 1 row returned...
                     if (rows.length > 1) {
                         console.log(
-                            'Something went wrong. More than 1 row was returned for id:',
+                            'More than 1 row was returned for id:',
                             userID
                         );
                         res.sendStatus(500); //# Sending 500 because there is something wrong with the backend.
@@ -178,10 +180,10 @@ const deleteUser = (req, res) => {
     db.query(sqlQuery, params, (err, rows) => {
         if (err) {
             console.log('The deleteUser route failed', err);
-            res.sendStatus(500); // # Sending 500 because error likely will originate from the backend.
+            res.sendStatus(500); //500 because error likely will originate from the backend.
         } else {
             console.log(`Number of records deleted: ${rows.affectedRows}`);
-            // * Sending the number of rows that have been deleted
+            // sending the number of rows that have been deleted
             res.json(rows.affectedRows);
         }
     });
