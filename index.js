@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const path = require("path");
-const port = process.env.PORT; //change name, this is wrong
+const port = process.env.PORT;
 //setting up the static landing page
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/public.html')));
 
